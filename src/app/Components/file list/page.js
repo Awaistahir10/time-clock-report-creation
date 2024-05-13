@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { CSVLink } from 'react-csv';
 import PDFTemplate from '../PDFTemplate/page';
+import PDFForSingleUser from '../PDFForSingleUser/page';
 
 const FileList = () => {
   const [showView, setShowView] = useState(false);
@@ -76,59 +77,43 @@ const FileList = () => {
     setUsersData(updatedData);
   };
 
-  const formatDataForCSV = () => {
-    const formattedData = [];
-    const groupedData = {};
+  const formatDataForCSV = (userId) => {
+  const formattedData = [];
+  
+  // Find the user data based on the provided userId
+  const userData = usersData.find(item => item.user.id === userId);
+  if (!userData) {
+    return formattedData; // Return empty array if user data not found
+  }
 
-    usersData.forEach(item => {
-      const userId = item.user.id;
-      if (!groupedData[userId]) {
-        groupedData[userId] = [];
-      }
-      groupedData[userId].push(item);
-    });
+  const { logs, date, user } = userData;
 
-    for (const userId in groupedData) {
-      if (groupedData.hasOwnProperty(userId)) {
-        const userData = groupedData[userId];
-        let totalHours = 0;
+  // Extract user details
+  const { organizationRole } = user;
 
-        const userRows = userData.map(item => {
-          totalHours += parseFloat(item.activeTime);
+  // Map logs data to desired format
+  const userRows = logs.map(log => ({
+    "Date": date,
+    "Time In": log.startTime ? formatTime(log.startTime) : '-',
+    "Time Out": log.endTime ? formatTime(log.endTime) : '-',
+    "Department ID": log.departmentId ? log.departmentId : '-',
+    "Status": log.status || "-",
+    "Role": organizationRole || "-",
+  }));
 
-          return {
-            "Date": item.date,
-            "Time In": item.logs[0]?.startTime ? formatTime(item.logs[0].startTime) : '-',
-            "Time Out": item.logs[item.logs.length - 1]?.endTime ? formatTime(item.logs[item.logs.length - 1].endTime) : '-',
-            "Department": item.workedDepartment || "-",
-            "Status": item.currentStatus || "-",
-            "Hours": millisecondsToHHMM(item.activeTime),
-            "Role": item.user.organizationRole || "-",
-          };
-        });
+  // Push the formatted logs data to the formattedData array
+  formattedData.push(...userRows);
 
-        formattedData.push(...userRows, {
-          "Date": "",
-          "Time In": "",
-          "Time Out": "",
-          "Department": "",
-          "Status": "",
-          "Hours": `Total Hours Worked: ${millisecondsToHHMM(totalHours)}`,
-          "Role": "",
-        });
-      }
-    }
+  return formattedData;
+};
 
-    return formattedData;
-  };
 
   const headers = [
     { label: "Date", key: "Date" },
     { label: "Time In", key: "Time In" },
     { label: "Time Out", key: "Time Out" },
-    { label: "Department", key: "Department" },
+    { label: "Department ID", key: "Department ID" },
     { label: "Status", key: "Status" },
-    { label: "Hours", key: "Hours" },
     { label: "Role", key: "Role" },
   ];
 
@@ -144,11 +129,12 @@ const FileList = () => {
 
   return (
     <div className='w-full h-screen flex justify-center items-center gap-4'>
-      <PDFTemplate dynamicData={usersData} viewPdf={showView} downloadPdf={downloadFile} />
+      {/* <PDFTemplate dynamicData={usersData} viewPdf={showView} downloadPdf={downloadFile} /> */}
+      <PDFForSingleUser userId={"663caf71bc14cfb681e6ce3c"} dynamicData={usersData} viewPdf={showView} downloadPdf={downloadFile} />
       <button onClick={handleViewClick} className='bg-red-500 transition-all hover:opacity-80 w-[10rem] h-[4rem] text-xl rounded-full text-white'>View PDF</button>
       <button onClick={handleDownloadClick} className='bg-red-800 transition-all hover:opacity-80 w-[10rem] h-[4rem] text-lg rounded-full text-white'>Download PDF</button>
       {usersData.length > 0 && (
-        <CSVLink className='bg-green-500 transition-all hover:opacity-80 w-[10rem] h-[4rem] text-lg rounded-full text-white flex justify-center items-center' data={formatDataForCSV()} headers={headers}>Download CSV</CSVLink>
+        <CSVLink className='bg-green-500 transition-all hover:opacity-80 w-[10rem] h-[4rem] text-lg rounded-full text-white flex justify-center items-center' data={formatDataForCSV("663892498ab0f40742540fb2")} headers={headers}>Download CSV</CSVLink>
       )}
     </div>
   );
