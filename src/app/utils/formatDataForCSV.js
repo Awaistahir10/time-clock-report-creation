@@ -46,6 +46,7 @@ export const formatDataForCSV = (usersData, userId = null) => {
 
           return {
             "Date": item.date,
+            "FirstName": item.user.firstName,
             "Time In": item.logs[0]?.startTime ? formatTime(item.logs[0].startTime) : '-',
             "Time Out": item.logs[item.logs.length - 1]?.endTime ? formatTime(item.logs[item.logs.length - 1].endTime) : '-',
             "Department ID": item.workedDepartment || "-",
@@ -57,6 +58,7 @@ export const formatDataForCSV = (usersData, userId = null) => {
 
         formattedData.push(...userRows, {
           "Date": "",
+          "FirstName": "",
           "Time In": "",
           "Time Out": "",
           "Department ID": "",

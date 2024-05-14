@@ -22,4 +22,10 @@ export const pdfStyles = {
     margin: [0, 5, 0, 0], // Add margin to separate header from content
     border: [false, false, false, false], // No borders
   },
+  userHeader: {
+    fontSize: 12,
+    bold: true,
+    alignment: 'left',
+    margin: [0, 10, 0, 5], // Add margin below the user header
+  },
 };

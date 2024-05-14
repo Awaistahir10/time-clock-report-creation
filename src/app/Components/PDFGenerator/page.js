@@ -30,6 +30,11 @@ const PDFGenerator = ({ dynamicData, downloadPdf, viewPdf, userId }) => {
 
       if (userData.length > 0) {
         // Calculate total hours worked for the user
+
+        const firstName = userData[0].user.firstName;
+
+        // Add the first name above the table header line
+        documentDefinition.content.push({ text: `Name: ${firstName}`, style: 'userHeader' });
         let totalHours = 0;
         userData.forEach(item => {
           totalHours += parseInt(item.activeTime);
@@ -115,6 +120,11 @@ const PDFGenerator = ({ dynamicData, downloadPdf, viewPdf, userId }) => {
       for (const userId in groupedData) {
         if (groupedData.hasOwnProperty(userId)) {
           const userData = groupedData[userId];
+
+          const firstName = userData[0].user.firstName;
+
+          // Add the first name above the table header line
+          documentDefinition.content.push({ text: `Name: ${firstName}`, style: 'userHeader' });
 
           // Calculate total hours worked for the user
           let totalHours = 0;
