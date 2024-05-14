@@ -1,22 +1,18 @@
-const { formatTime } = require("./formatTime");
-const { millisecondsToHHMM } = require("./millisecondsToHHMM");
+import { formatTime } from "./formatTime";
+import { millisecondsToHHMM } from "./millisecondsToHHMM";
 
 export const formatDataForCSV = (usersData, userId = null) => {
   const formattedData = [];
 
   if (userId) {
-    // Find the user data based on the provided userId
     const userData = usersData.find(item => item.user.id === userId);
     if (!userData) {
-      return formattedData; // Return empty array if user data not found
+      return formattedData;
     }
 
-    const { logs, date, user } = userData;
-
-    // Extract user details
+    const { logs, date, user, activeTime } = userData;
     const { organizationRole } = user;
 
-    // Map logs data to desired format
     const userRows = logs.map(log => ({
       "Date": date,
       "Time In": log.startTime ? formatTime(log.startTime) : '-',
@@ -24,13 +20,13 @@ export const formatDataForCSV = (usersData, userId = null) => {
       "Department ID": log.departmentId ? log.departmentId : '-',
       "Status": log.status || "-",
       "Role": organizationRole || "-",
+      "Hours": millisecondsToHHMM(activeTime),
     }));
 
-    // Push the formatted logs data to the formattedData array
     formattedData.push(...userRows);
   } else {
-    // For multiple users
     const groupedData = {};
+    let totalHours = 0;
 
     usersData.forEach(item => {
       const userId = item.user.id;
@@ -52,21 +48,18 @@ export const formatDataForCSV = (usersData, userId = null) => {
             "Date": item.date,
             "Time In": item.logs[0]?.startTime ? formatTime(item.logs[0].startTime) : '-',
             "Time Out": item.logs[item.logs.length - 1]?.endTime ? formatTime(item.logs[item.logs.length - 1].endTime) : '-',
-            "Department": item.workedDepartment || "-",
+            "Department ID": item.workedDepartment || "-",
             "Status": item.currentStatus || "-",
             "Hours": millisecondsToHHMM(item.activeTime),
             "Role": item.user.organizationRole || "-",
           };
         });
 
-        formattedData.push(...userRows);
-
-        // Append total hours row for each user
-        formattedData.push({
+        formattedData.push(...userRows, {
           "Date": "",
           "Time In": "",
           "Time Out": "",
-          "Department": "",
+          "Department ID": "",
           "Status": "",
           "Hours": `Total Hours Worked: ${millisecondsToHHMM(totalHours)}`,
           "Role": "",

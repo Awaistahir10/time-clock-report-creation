@@ -4,5 +4,6 @@ export const headers = [
     { label: "Time Out", key: "Time Out" },
     { label: "Department ID", key: "Department ID" },
     { label: "Status", key: "Status" },
+    { label: "Hours", key: "Hours" },
     { label: "Role", key: "Role" },
   ];
