@@ -9,12 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@react-pdf/renderer": "^3.4.4",
     "axios": "^1.6.8",
     "blob-util": "^2.0.2",
-    "html-to-pdfmake": "^2.5.7",
     "next": "14.2.3",
-    "pdf-lib": "^1.17.1",
     "pdfmake": "^0.2.10",
     "react": "^18",
     "react-csv": "^2.2.2",
