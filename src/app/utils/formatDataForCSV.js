@@ -15,6 +15,7 @@ export const formatDataForCSV = (usersData, userId = null) => {
 
     const userRows = logs.map(log => ({
       "Date": date,
+      "FirstName": user.firstName,
       "Time In": log.startTime ? formatTime(log.startTime) : '-',
       "Time Out": log.endTime ? formatTime(log.endTime) : '-',
       "Department ID": log.departmentId ? log.departmentId : '-',
