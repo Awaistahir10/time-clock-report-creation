@@ -1,0 +1,46 @@
+export const newPdfStyles = {
+  heading: {
+    fontSize: 16,
+    bold: true,
+    alignment: 'left',
+    margin: [0, 0, 0, 20],
+    color: '#386384',
+  },
+  columnHeader: {
+    fontSize: 11,
+    bold: true,
+    color: '#4B5157',
+    margin: [0, 0, 180, 0],
+  },
+  columnText: {
+    fontSize: 13,
+    bold: true,
+    color: '#040404',
+    // decoration: 'underline',
+    // decorationStyle: 'dashed',
+    margin: [0, 0, 0, 5],
+  },
+  employeeTableHeader: {
+    fontSize: 12,
+    bold: true,
+    fillColor: '#518EBD',
+    margin: [0, 0, 16, 0],
+    color: 'white',
+    alignment: 'center',
+  },
+  employeeTableData: {
+    fontSize: 11,
+    bold: true,
+    color: '#040404',
+    margin: [0, 0, 16, 5],
+    alignment: 'center',
+  },
+  lastRowTotal: {
+    fontSize: 12,
+    bold: true,
+    fillColor: '#DFEEF9',
+    margin: [0, 0, 16, 0],
+    color: 'black',
+    alignment: 'center',
+  },
+};
