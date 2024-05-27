@@ -1,0 +1,16 @@
+export const MAIN_TABLE_XANDYCOORDINATES = {
+    mainRectangle: { x: 0, y: 100, width: 750, height: 30, color: '#DFEEF9' },
+    pdfHeaderText: {text: 'Payroll Details', x: 45, y: 125},
+    firstName: { x: 45, y: 60 },
+    supervisorSignatureLine: { x: 0, y: 420, width: 160, height: 0.5, color: '#4D5358' },
+    dateLine: { x: 180, y: 420, width: 110, height: 0.5, color: '#4D5358' },
+    totalHoursLine: { x: 400, y: 420, width: 110, height: 1, color: '#DFEEF9' },
+    totalEarningLine: { x: 400, y: 490, width: 110, height: 1, color: '#DFEEF9' },
+    supervisorText: {x: 40, y: 445},
+    dateText: {x: 220, y: 445},
+    totalHoursText: {x: 485, y: 445},
+    totalHoursHeading: {x: 523, y: 425},
+    automateTimesheetText: {x: 40, y: 500},
+    earningText: {x: 515, y: 495},
+    totalPayrollText: {x: 475, y: 515},
+}

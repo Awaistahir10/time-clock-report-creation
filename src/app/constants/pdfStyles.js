@@ -14,7 +14,7 @@ export const pdfStyles = {
     bold: true,
     fontSize: 12,
     color: 'black', // Set color to black
-    margin: [0, 5, 0, 0], // Add margin to separate header from content
+    margin: [0, 5, 90, 0], // Add margin to separate header from content
     border: [false, false, false, true], // Bottom border only
   },
   tableData: {
@@ -28,4 +28,26 @@ export const pdfStyles = {
     alignment: 'left',
     margin: [0, 10, 0, 5], // Add margin below the user header
   },
+  tableHeaderForSingleUser: {
+    bold: true,
+    fontSize: 12,
+    color: 'black', // Set color to black
+    margin: [0, 0, 0, 70], // Add margin to separate header from content
+    border: [false, false, false, true], // Bottom border only
+  },
+  tableHeaderForHours: {
+    bold: true,
+    fontSize: 12,
+    color: 'black', // Set color to black
+    margin: [80, 0, 0, 70], // Add margin to separate header from content
+    border: [false, false, false, true], // Bottom border only
+  },
+  tableDataForHours: {
+    fontSize: 10,
+    margin: [80, 0, 0, 0], // Add margin to separate header from content
+    border: [false, false, false, false], // No borders
+  },
+  spaceForTableRows: {
+    margin: [0, 5, 0, 0], // Add margin to separate header from content
+  }
 };

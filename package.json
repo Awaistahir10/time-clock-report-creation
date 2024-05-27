@@ -15,7 +15,8 @@
     "pdfmake": "^0.2.10",
     "react": "^18",
     "react-csv": "^2.2.2",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "write-excel-file": "^2.0.1"
   },
   "devDependencies": {
     "eslint": "^8",
